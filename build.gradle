@@ -1,0 +1,20 @@
+buildscript {
+  repositories {
+    // Add here whatever repositories you're already using
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'ch.epfl.scala:gradle-bloop_2.12:1.6.2'
+  }
+
+}
+
+allprojects {
+  // test is for compatibility with Metals import
+  // pass
+  if (!plugins.hasPlugin("bloop")) {
+    apply plugin: "bloop"
+  }
+}
+
