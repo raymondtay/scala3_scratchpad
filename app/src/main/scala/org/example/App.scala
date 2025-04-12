@@ -3,10 +3,17 @@
  */
 package org.example
 
-object App {
+object App:
+
+  import ChecksumAccumulator.calculate
   def main(args: Array[String]): Unit = {
     println(greeting())
+
+    val q = Person("sally", 49)
+
+    for arg <- args do
+      println(arg + ": " + calculate(arg))
   }
 
   def greeting(): String = "Hello, world!"
-}
+
