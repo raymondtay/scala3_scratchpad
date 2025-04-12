@@ -19,14 +19,15 @@ repositories {
     mavenCentral()
 }
 
-scala {
-    scalaVersion = "3.6.4"
-}
+//scala {
+//    scalaVersion = "3.6.4"
+//}
 
 dependencies {
 
     // This dependency is used by the application.
     implementation libs.guava
+    implementation libs.scala
 
     testImplementation "org.junit.platform:junit-platform-launcher:1.12.0"
     testRuntimeOnly "org.junit.platform:junit-platform-engine:1.12.0"

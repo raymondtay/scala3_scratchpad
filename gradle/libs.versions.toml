@@ -1,0 +1,10 @@
+[versions]
+guava = "32.1.2-jre"
+junit-jupiter = "5.10.0"
+scala = "3.6.4"
+
+[libraries]
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+scala = { module = "org.scala-lang:scala3-library_3", version.ref = "scala"}
+
