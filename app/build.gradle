@@ -13,7 +13,7 @@ plugins {
 	id 'application'
 
 	// Using the scalafmt plugin for Gradle
-	id("com.diffplug.spotless") version "7.0.3" apply true
+	id("com.diffplug.spotless") version "7.0.3"
 }
 
 
@@ -39,24 +39,25 @@ format 'misc', {
 scala {
 	// version and configFile, scalaMajorVersion are all optional
 	scalafmt('3.9.4')
-  suppressLintsFor {
-  	step = 'scalafmt'
-  }
+suppressLintsFor {
+	step = 'scalafmt'
+}
 	licenseHeader '/* (C) $YEAR */', 'package'
 }
 
-// java {
-// 	// don't need to set target, it is inferred from java
-//
-// 	// apply a specific flavor of google-java-format
-// 	googleJavaFormat('1.17.0').aosp().reflowLongStrings().skipJavadocFormatting()
-// 	// fix formatting of type annotations
-// 	formatAnnotations()
-// 	// make sure every file has the following copyright header.
-// 	// optionally, Spotless can set copyright years by digging
-// 	// through git history (see "license" section below)
-// 	licenseHeader '/* (C)$YEAR */'
-// }
+java {
+	// don't need to set target, it is inferred from java
+
+	// apply a specific flavor of google-java-format
+	googleJavaFormat('1.17.0').aosp().reflowLongStrings().skipJavadocFormatting()
+	// fix formatting of type annotations
+	formatAnnotations()
+	// make sure every file has the following copyright header.
+	// optionally, Spotless can set copyright years by digging
+	// through git history (see "license" section below)
+	licenseHeader '/* (C)$YEAR */'
+}
+
 }
 
 
