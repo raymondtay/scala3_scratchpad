@@ -6,56 +6,93 @@
  */
 
 plugins {
-    // Apply the scala Plugin to add support for Scala.
-    id 'scala'
+	// Apply the scala Plugin to add support for Scala.
+	id 'scala'
 
-    // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
+	// Apply the application plugin to add support for building a CLI application in Java.
+	id 'application'
+
+	// Using the scalafmt plugin for Gradle
+	id("com.diffplug.spotless") version "7.0.3" apply true
 }
 
 
 repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
+	// Use Maven Central for resolving dependencies.
+	mavenCentral()
 }
 
-//scala {
-//    scalaVersion = "3.6.4"
-//}
+spotless {
+// optional: limit format enforcement to just the files changed by this feature branch
+ratchetFrom 'origin/main'
+
+format 'misc', {
+	// define the files to apply `misc` to
+	target '*.gradle', '.gitattributes', '.gitignore'
+
+	// define the steps to apply to those files
+	trimTrailingWhitespace()
+	leadingSpacesToTabs() // or leadingTabsToSpaces. Takes an integer argument if you don't like 4
+	endWithNewline()
+}
+
+scala {
+	// version and configFile, scalaMajorVersion are all optional
+	scalafmt('3.9.4')
+  suppressLintsFor {
+  	step = 'scalafmt'
+  }
+	licenseHeader '/* (C) $YEAR */', 'package'
+}
+
+// java {
+// 	// don't need to set target, it is inferred from java
+//
+// 	// apply a specific flavor of google-java-format
+// 	googleJavaFormat('1.17.0').aosp().reflowLongStrings().skipJavadocFormatting()
+// 	// fix formatting of type annotations
+// 	formatAnnotations()
+// 	// make sure every file has the following copyright header.
+// 	// optionally, Spotless can set copyright years by digging
+// 	// through git history (see "license" section below)
+// 	licenseHeader '/* (C)$YEAR */'
+// }
+}
+
 
 dependencies {
 
-    // This dependency is used by the application.
-    implementation libs.guava
-    implementation libs.scala
+	// This dependency is used by the application.
+	implementation libs.guava
+	implementation libs.scala
 
-    testImplementation "org.junit.platform:junit-platform-launcher:1.12.0"
-    testRuntimeOnly "org.junit.platform:junit-platform-engine:1.12.0"
-    testRuntimeOnly "org.scalatestplus:junit-5-12_3:3.2.19.0"
+	testImplementation "org.junit.platform:junit-platform-launcher:1.12.0"
+	testRuntimeOnly "org.junit.platform:junit-platform-engine:1.12.0"
+	testRuntimeOnly "org.scalatestplus:junit-5-12_3:3.2.19.0"
 
-    testImplementation 'org.scalatest:scalatest_3:3.2.19'
-    testImplementation 'org.scalatest:scalatest-funsuite_3:3.2.19'
-    testImplementation 'org.scalactic:scalactic_3:3.2.19'
+	testImplementation 'org.scalatest:scalatest_3:3.2.19'
+	testImplementation 'org.scalatest:scalatest-funsuite_3:3.2.19'
+	testImplementation 'org.scalactic:scalactic_3:3.2.19'
 
 }
 
 test {
-    useJUnitPlatform {
-        includeEngines 'scalatest'
-        testLogging {
-            events("passed", "skipped", "failed", "standard_error")
-        }
-    }
+	useJUnitPlatform {
+		includeEngines 'scalatest'
+		testLogging {
+			events("passed", "skipped", "failed", "standard_error")
+		}
+	}
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = 'org.example.App'
+	// Define the main class for the application.
+	mainClass = 'org.example.App'
 }
